@@ -7,10 +7,16 @@ class Weather
   end
 
   def weather_data
+    if REDIS.get(@city)
+      JSON.parse(REDIS.get(@city))
+    else
       res = HTTParty.get(
         "http://api.openweathermap.org/data/2.5/weather?q=#{URI.escape(@city)}&APPID=#{ENV['API_KEY']}"
       )
+      REDIS.set(@city, res.body)
+      REDIS.expire(@city, 300)
       JSON.parse(res.body)
+    end
   end
 
   def temp
