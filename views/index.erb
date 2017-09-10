@@ -6,6 +6,11 @@
 		<main>
 			<h2>The weather right now in San Francisco</h2>
 			<h1><%= @temp %>&deg;</h1>
+			<div>
+				<% @icons.each do |icon| %>
+					<img src="<%= icon %>" alt="weather icon"/>
+				<% end %>
+			</div>
 		</main>
 		<footer>
 			<ul>
@@ -22,6 +27,7 @@
         by <a href="http://github.com/lnzd17">Lindsay Dages</a>
         from <a href="http://thefirehoseproject.com">Firehose</a>
       </p>
+			<span>Icons by <a href="flaticon.com">flaticon</a></span>
 		</footer>
 	</body>
 </html>

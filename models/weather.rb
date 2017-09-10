@@ -12,12 +12,20 @@ class Weather
       )
       JSON.parse(res.body)
   end
-  
+
   def temp
     data = weather_data
     return nil if data.nil? ||
                   data['main'].nil? ||
                   data['main']['temp'].nil?
     (data['main']['temp'] * 9 / 5 - 459.67).floor
+  end
+
+  def icons
+    data = weather_data
+    return [] if data.nil? || data['weather'].nil?
+    data['weather'].collect do |weather|
+      weather['icon'] + ".png"
+    end.uniq
   end
 end

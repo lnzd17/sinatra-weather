@@ -20,5 +20,6 @@ get '/' do
   @city = params[:city] || "New York City"
   weather = Weather.new(@city)
   @temp = weather.temp
+  @icons = weather.icons
   erb :index
 end
