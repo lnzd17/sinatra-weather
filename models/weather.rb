@@ -1,13 +1,18 @@
 require 'httparty'
+require 'uri'
+
 class Weather
+  def initialize(city)
+    @city = city
+  end
+
   def weather_data
       res = HTTParty.get(
-        "http://api.openweathermap.org/data/2.5/weather?q=London&APPID=#{ENV['API_KEY']}"
+        "http://api.openweathermap.org/data/2.5/weather?q=#{URI.escape(@city)}&APPID=#{ENV['API_KEY']}"
       )
       JSON.parse(res.body)
   end
-
-
+  
   def temp
     data = weather_data
     return nil if data.nil? ||
